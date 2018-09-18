@@ -17,7 +17,9 @@ class Car {
     this.angle = new Angle;
 
     this.direction = 0;
-    this.steeringAngle = 300;
+    this.steering = 0;
+    this.steeringAcceleration = 60;
+    this.steeringAngle = 10;
   }
 
   handleKeydown(key) {
@@ -59,7 +61,29 @@ class Car {
   }
 
   update(dt) {
-    this.angle.degrees += this.direction * this.steeringAngle * dt;
+    if (this.direction === - 1) {
+      if (this.vel < 0) {
+        this.steering += this.steeringAcceleration * dt;
+      } else {
+        this.steering -= this.steeringAcceleration * dt;
+      }
+    } else if (this.direction === 1) {
+      if (this.vel < 0) {
+        this.steering -= this.steeringAcceleration * dt;
+      } else {
+        this.steering += this.steeringAcceleration * dt;
+      }
+    } else {
+      if (this.steering < 0) {
+        this.steering += this.steeringAcceleration * dt;
+        this.steering = Math.min(0, this.steering);
+      } else {
+        this.steering -= this.steeringAcceleration * dt;
+        this.steering = Math.max(0, this.steering);
+      }
+    }
+    this.steering = Math.min(this.steeringAngle, Math.max(this.steering, -this.steeringAngle));
+    this.angle.degrees += this.steering;
 
     if (this.acc) {
       this.vel += this.acc * dt;
