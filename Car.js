@@ -4,7 +4,8 @@ const Angle = require('./Angle.js');
 class Car {
   constructor(id) {
     this.id = id;
-    this.color = '#' + Math.random().toString(16).substr(-6);
+    this.color = Math.ceil(Math.random() * 5);
+    // this.color = '#' + Math.random().toString(16).substr(-6);
 
     this.acceleration = 360;
     this.deceleration = 160;
