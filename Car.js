@@ -18,7 +18,7 @@ class Car {
 
     this.direction = 0;
     this.steering = 0;
-    this.steeringAcceleration = 60;
+    this.steeringAcceleration = 120;
     this.steeringAngle = 10;
   }
 
