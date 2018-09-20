@@ -9,7 +9,9 @@ const Car = require('./Car.js');
 
 let cars = [];
 
-const delay = 0;
+const DELAY = 0;
+const UPDATE_RATE = 60;
+const STREAM_RATE = 60;
 
 io.on('connection', socket => {
   const playerCar = new Car(socket.id);
@@ -19,13 +21,13 @@ io.on('connection', socket => {
   socket.on('keydown', key => {
     setTimeout(() => {
       playerCar.handleKeydown(key);
-    }, delay)
+    }, DELAY)
   });
 
   socket.on('keyup', key => {
     setTimeout(() => {
       playerCar.handleKeyup(key);
-    }, delay)
+    }, DELAY)
   });
 
   socket.on('disconnect', () => {
@@ -34,13 +36,13 @@ io.on('connection', socket => {
 });
 
 function update() {
-  cars.forEach(car => car.update(1 / 30));
+  cars.forEach(car => car.update(1 / UPDATE_RATE));
 };
-setInterval(update, 1000 / 30);
+setInterval(update, 1000 / UPDATE_RATE);
 
 function stream() {
   io.emit('data', cars);
 };
-setInterval(stream, 1000 / 30);
+setInterval(stream, 1000 / STREAM_RATE);
 
 server.listen(5000);
