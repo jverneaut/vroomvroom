@@ -7,7 +7,7 @@ class Car {
     this.color = Math.floor(Math.random() * 5) + 1;
 
     this.acceleration = 360;
-    this.deceleration = 160;
+    this.deceleration = 200;
     this.maxSpeed = 220;
 
     this.pos = new Vec;
@@ -18,8 +18,8 @@ class Car {
 
     this.direction = 0;
     this.steering = 0;
-    this.steeringAcceleration = 120;
-    this.steeringAngle = 10;
+    this.steeringAcceleration = 2000;
+    this.steeringAngle = 300;
   }
 
   handleKeydown(key) {
@@ -83,7 +83,7 @@ class Car {
       }
     }
     this.steering = Math.min(this.steeringAngle, Math.max(this.steering, -this.steeringAngle));
-    this.angle.degrees += this.steering;
+    this.angle.degrees += this.steering * dt;
 
     if (this.acc) {
       this.vel += this.acc * dt;
