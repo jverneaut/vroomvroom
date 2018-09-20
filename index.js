@@ -6,8 +6,11 @@ const io = require('socket.io')(server);
 app.use(express.static('public'));
 
 const Car = require('./Car.js');
+const Ball = require('./Ball.js');
 
 let cars = [];
+const ball = new Ball;
+ball.pos.set(300, 200);
 
 const DELAY = 0;
 const UPDATE_RATE = 60;
@@ -36,12 +39,16 @@ io.on('connection', socket => {
 });
 
 function update() {
-  cars.forEach(car => car.update(1 / UPDATE_RATE));
+  ball.update(1 / UPDATE_RATE);
+  cars.forEach(car => {
+    car.update(1 / UPDATE_RATE);
+    ball.collide(car);
+  });
 };
 setInterval(update, 1000 / UPDATE_RATE);
 
 function stream() {
-  io.emit('data', cars);
+  io.emit('data', { cars, ball });
 };
 setInterval(stream, 1000 / STREAM_RATE);
 

@@ -149,6 +149,11 @@ class Car {
       this.pos.x = this.nextPos.x;
       this.pos.y = this.nextPos.y;
     } else {
+      this.frontLeft.x = this.nextPos.x + 0.75 * width * this.angle.vec.x + this.angle.vec.y * height / 2;
+      this.frontLeft.y = this.nextPos.y + 0.75 * width * this.angle.vec.y - this.angle.vec.x * height / 2;
+      this.frontRight.x = this.nextPos.x + 0.75 * width * this.angle.vec.x - this.angle.vec.y * height / 2;
+      this.frontRight.y = this.nextPos.y + 0.75 * width * this.angle.vec.y + this.angle.vec.x * height / 2;
+
       this.pos.x = this.nextPos.x;
       this.pos.y = this.nextPos.y;
     }

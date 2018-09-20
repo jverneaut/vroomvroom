@@ -1,5 +1,6 @@
 import Rect from './Rect.js';
 import Car from './Car.js';
+import Ball from './Ball.js';
 
 const socket = io.connect('http://localhost:5000');
 
@@ -32,7 +33,10 @@ const wallBottom = new Rect(0, canvas.height, canvas.width, 8 * UPSCALE);
 wallBottom.color = '#aaa';
 wallBottom.anchor.set(0, 1);
 
-socket.on('data', cars => {
+const ballImg = new Ball;
+ballImg.pos.set(500 * UPSCALE, canvas.height / 2);
+
+socket.on('data', ({ cars, ball }) => {
   bg.draw(context);
   wallLeft.draw(context);
   wallRight.draw(context);
@@ -43,6 +47,10 @@ socket.on('data', cars => {
     carToDraw.rotation.degrees = -car.angle.degrees;
     carToDraw.draw(context);
   });
+  ballImg.pos.x = ball.pos.x * UPSCALE;
+  ballImg.pos.y = ball.pos.y * UPSCALE;
+  ballImg.size = ball.size * UPSCALE;
+  ballImg.draw(context);
 });
 
 window.addEventListener('keydown', event => {
