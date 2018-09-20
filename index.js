@@ -11,7 +11,7 @@ let cars = [];
 
 const DELAY = 0;
 const UPDATE_RATE = 60;
-const STREAM_RATE = 60;
+const STREAM_RATE = 30;
 
 io.on('connection', socket => {
   const playerCar = new Car(socket.id);
